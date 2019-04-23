@@ -2,15 +2,15 @@
  - hosts: all
    become: True
    tasks:
-    - name: Add centos os repositories
+    - name: Adding OS extras Repositories 
       yum_repository:
-        name: os
+        name: repo_data
         description: os repositories
-        file: rhel_extra_hard
+        file: rhel_extras1
         baseurl: http://mirror.centos.org/centos/7/os/x86_64/
         gpgcheck: no
 
-    - name: installing docker dependencies
+    - name: Installing docker dependencies in EC2 Server
       yum:
        name: https://rpmfind.net/linux/centos/7.6.1810/extras/x86_64/Packages/container-selinux-2.74-1.el7.noarch.rpm
        state: present
@@ -19,39 +19,40 @@
       yum_repository:
         name: epel
         description: extras repositories
-        file: rhel_extra_hard
+        file: rhel_extras1
         baseurl: http://mirror.centos.org/centos/7/extras/x86_64/
         gpgcheck: no
 
-    - name: Getting docker-ce repository
+    - name: Getting docker-ce repository from internet
       get_url:
        url: https://download.docker.com/linux/centos/docker-ce.repo
        dest: /etc/yum.repos.d/
 
-    - name: installing docker-py for python
+    - name: Installing docker-py in python for docker_container through Ansible
       yum:
        name: http://mirror.centos.org/centos/7/extras/x86_64/Packages/python-docker-py-1.10.6-8.el7_6.noarch.rpm
        state: present
 
-    - name: installing docker
+    - name: Installing docker in the remote Machine(AWS EC2 server)
       yum:
        name: docker-ce
        state: present
 
-    - name: installing firewalld so it can be access from anywhere
+    - name: Installing firewalld so it can be access from anywhere
       yum:
        name: firewalld
        state: present
 
-    - name: enable and restart firewalld service
+    - name: Enable and Restarting the firewalld service
       service:
        name: firewalld
        state: restarted
        enabled: yes
 
-    - name: enable and restart docker service
+    - name: Enabling and Restarting docker service in remote machine
       service:
        name: docker
        state: restarted
        enabled: yes
 
+  #Now run nginx_container.yml by using ansible-playbook command.
