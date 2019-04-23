@@ -1,0 +1,10 @@
+---
+ - hosts: localhost
+   become: True
+   tasks:
+    - name: Create a data container
+      docker_container:
+       name: nginx_container
+       image: nginx:latest 
+       ports:
+        - "8080:80"
