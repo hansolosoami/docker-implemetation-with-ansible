@@ -1,5 +1,5 @@
 ---
- - hosts: localhost
+ - hosts: all
    become: True
    tasks:
     - name: Create a data container
