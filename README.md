@@ -25,3 +25,11 @@ implementing docker-CE using ansible playbook including installation of docker a
   7. now run :-
   
   #ansible-playbook nginx-container.yml
+ 
+ 8. now run this command in your ec2 machine to check whether its working or not.
+ 
+ #curl 127.0.0.1:8080
+ 
+ 9. check whether the container is running or not 
+ 
+ #docker container ls
